@@ -18,8 +18,10 @@
     "dotenv": "^8.2.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon -r dotenv/config index.js",
+    "start": "node index.js"  
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BW-VR-FundingPlatform1/back-end.git"
