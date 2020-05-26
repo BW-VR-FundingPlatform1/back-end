@@ -15,13 +15,13 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.4"
   },
   "scripts": {
     "server": "nodemon -r dotenv/config index.js",
-    "start": "node index.js"  
+    "start": "node index.js"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BW-VR-FundingPlatform1/back-end.git"
