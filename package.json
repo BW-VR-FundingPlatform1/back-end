@@ -19,7 +19,7 @@
     "nodemon": "^2.0.4"
   },
   "scripts": {
-    "watch": "nodemon -r dotenv/config index.js",
+    "watch": "nodemon --require dotenv/config index.js",
     "start": "node index.js"
   },
   "repository": {
