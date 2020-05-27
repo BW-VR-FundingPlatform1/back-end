@@ -58,4 +58,4 @@ typings/
 .next
 
 # environment variables
-./env/
+# ./env/
