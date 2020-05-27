@@ -24,10 +24,10 @@ server.get("/", (req, res, next) => {
         message: "Welcome to VR Direct!"
     })
 })
-server.use((err, message, stack, req, res, next) => {
+server.use((err, req, res, next) => {
     console.log("error", err)
     return res.status(500).json ({ 
-        message, err, stack
+        message: "uh oh there was a problem!"
     })
 })
 

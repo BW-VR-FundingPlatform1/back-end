@@ -14,19 +14,32 @@ router.get("/", restrict(), async (req, res, next) => {
     }
   });
 
-router.post("/register", async (req, res, next) => {
-    try {
-        const {username} = req.body
-        const user = await db.findBy({username}).first()
-        if (user) {
-          return res.status(409).json({
-            message: "username is already taken"
-          })
-        }
-        res.status(201).json(await db.insert(req.body))
-      } catch(err) {
-        next(err)
-      }
+router.post("/register", (req, res, next) => {
+    const newUser = req.body
+    const hash = bcrypt.hashSync(newUser.password, 12)
+  
+    newUser.password = hash
+
+    db.insert(newUser)
+    .then(user => {
+      res.status(201).json(user)
+    })
+    .catch(({ name, message, code, stack }) => {
+      res.status(500).json({ name, message, code, stack })
+    }) 
+  
+  // try {
+    //     const {username} = req.body
+    //     const user = await db.findBy({username}).first()
+    //     if (user) {
+    //       return res.status(409).json({
+    //         message: "username is already taken"
+    //       })
+    //     }
+    //     res.status(201).json(await db.insert(req.body))
+    //   } catch(err) {
+    //     next(err)
+    //   }
     })
 
     router.post('/login', async (req, res, next) => {
