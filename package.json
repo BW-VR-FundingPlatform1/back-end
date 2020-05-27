@@ -23,7 +23,7 @@
   },
   "scripts": {
     "watch": "nodemon --require dotenv/config index.js",
-    "start": "node index.js"
+    "start": "node --require dotenv/config index.js"
   },
   "repository": {
     "type": "git",
