@@ -1,18 +1,18 @@
 
 exports.up = async function(knex) {
-    await knex.schema.createTable("entrepreneur", (table) => {
+    await knex.schema.createTable("backer", (table) => {
         table.increments("id")
-        table.string("username", 280).notNullable().unique()
-        table.string("password", 280).notNullable()
-        table.string("FirstName", 280)
-        table.string("LastName", 280)
-        table.string("address", 280)
-        table.string("phone")
-        table.string("email", 280)
+        table.string("username", 280).notNull().unique()
+        table.string("password", 280).notNull()
+        table.string("FirstName", 280).notNull()
+        table.string("LastName", 280).notNull()
+        table.string("address", 280).notNull()
+        table.string("phone").notNull()
+        table.string("email", 280).notNull()
     })
   }
   
   exports.down = async function(knex) {
-    await knex.schema.dropTableIfExists("entrepreneur")
+    await knex.schema.dropTableIfExists("backer")
   }
   
