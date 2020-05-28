@@ -14,6 +14,14 @@ router.get("/", restrict(), async (req, res, next) => {
     }
   });
 
+router.get("/projects", restrict(), async (req, res, next) => {
+    try {
+      res.json(await db.projectList());
+    } catch (err) {
+      next(err);
+    }
+  });
+
 router.post("/register", async (req, res, next) => {
     try {
         const {username} = req.body

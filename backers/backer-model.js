@@ -24,21 +24,21 @@ function findById(id) {
         .first()
 }
 
-
-// async function update(id, changes) {
-//     await db("backer")
-//         .where({ id })
-//         .update(changes)
-//         .returning("id")
-//         return findById(id)
-// }
-
-
-
 function remove(id) {
     return db("backer")
         .where({ id })
         .del()
+}
+
+function projectList() {
+    return db("projectsToBack")
+    .select("img", "companyName", "projectName", "fundingAmount")
+}
+
+function findProjectById(id) {
+    return db("projectsToBack")
+        .where({ id })
+        .first()
 }
 
 module.exports = {
@@ -47,4 +47,6 @@ module.exports = {
     findById,
     insert,
     remove,
+    projectList,
+    findProjectById
 }

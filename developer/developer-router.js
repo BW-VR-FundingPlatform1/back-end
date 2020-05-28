@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const restrict = require("../middleware/auth")
-const db = require("./e-model")
+const db = require("./developer-model")
 const jwt = require('jsonwebtoken')
 
 
@@ -9,6 +9,14 @@ const router = require("express").Router()
 router.get("/", restrict(), async (req, res, next) => {
   try {
     res.json(await db.list());
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/projects", restrict(), async (req, res, next) => {
+  try {
+    res.json(await db.projectList());
   } catch (err) {
     next(err);
   }
