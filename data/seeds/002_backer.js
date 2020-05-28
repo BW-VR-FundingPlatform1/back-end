@@ -4,8 +4,8 @@ exports.seed = async function (knex) {
         {
             username: 'Bdavis',
             password: "davis",
-            firstName: "Blake",
-            lastName: "Davis",
+            FirstName: "Blake",
+            LastName: "Davis",
             address: "2319 Wall St. New York, NY",
             phone: 3567342685,
             email: "bd@ny.com"
@@ -14,8 +14,8 @@ exports.seed = async function (knex) {
         {
             username: 'Awhitt',
             password: "whitt",
-            firstName: "Alex",
-            lastName: "Whitt",
+            FirstName: "Alex",
+            LastName: "Whitt",
             address: "353 Marshall Ave. Saint Paula, MN",
             phone: 7357843210,
             email: "aw@louis.com"
