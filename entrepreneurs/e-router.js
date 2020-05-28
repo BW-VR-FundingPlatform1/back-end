@@ -47,9 +47,12 @@ router.post("/register", async (req, res, next) => {
             userId: user.id,
             userRole: "user",
           }
-          res.cookie("token", jwt.sign(tokenPayload, process.env.JWT_SECRET))
+          const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {expiresIn: '1hr'})
+
+          res.cookie("token", token)
           res.json({
             message: `Welcome ${user.username}! :)`,
+            token: token
           })
         } catch(err) {
           next(err)
