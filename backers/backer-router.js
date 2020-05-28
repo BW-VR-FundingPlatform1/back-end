@@ -14,7 +14,19 @@ router.get("/", restrict(), async (req, res, next) => {
     }
   });
 
+<<<<<<< HEAD
   router.post("/register", async (req, res, next) => {
+=======
+router.get("/projects", restrict(), async (req, res, next) => {
+    try {
+      res.json(await db.projectList());
+    } catch (err) {
+      next(err);
+    }
+  });
+
+router.post("/register", async (req, res, next) => {
+>>>>>>> 9c2978983a1603f0c29f56c367f1c7c219c3eac5
     try {
         const {username} = req.body
         const user = await db.findBy({username}).first()
@@ -47,10 +59,13 @@ router.get("/", restrict(), async (req, res, next) => {
             userId: user.id,
             userRole: "user",
           }
-          res.cookie("token", jwt.sign(tokenPayload, process.env.JWT_SECRET))
-          res.json({
-            message: `Welcome ${user.username}! :)`,
-          })
+            const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {expiresIn: '1hr'})
+
+            res.cookie("token", token)
+            res.json({
+              message: `Welcome ${user.username}! :)`,
+              token: token
+            })
         } catch(err) {
           next(err)
         }
