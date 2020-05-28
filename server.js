@@ -3,7 +3,7 @@ const express = require("express")
 const cors = require("cors")
 const helmet = require("helmet")
 
-const entrepreneurRouter = require("./entrepreneurs/e-router")
+const entrepreneurRouter = require("./developer/developer-router")
 const backerRouter = require("./backers/backer-router")
 const cookieParser = require("cookie-parser")
 

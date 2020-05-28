@@ -52,6 +52,5 @@ module.exports = {
     insert,
     remove,
     findProjectById,
-    projectList,
-    insertJob
+    projectList
 }
