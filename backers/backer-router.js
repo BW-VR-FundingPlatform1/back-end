@@ -14,9 +14,6 @@ router.get("/", restrict(), async (req, res, next) => {
     }
   });
 
-<<<<<<< HEAD
-  router.post("/register", async (req, res, next) => {
-=======
 router.get("/projects", restrict(), async (req, res, next) => {
     try {
       res.json(await db.projectList());
@@ -26,7 +23,6 @@ router.get("/projects", restrict(), async (req, res, next) => {
   });
 
 router.post("/register", async (req, res, next) => {
->>>>>>> 9c2978983a1603f0c29f56c367f1c7c219c3eac5
     try {
         const {username} = req.body
         const user = await db.findBy({username}).first()
