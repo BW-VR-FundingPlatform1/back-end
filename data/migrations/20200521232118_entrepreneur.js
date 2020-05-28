@@ -6,7 +6,7 @@ exports.up = async function(knex) {
         table.string("password", 280).notNull()
         table.string("FirstName", 280).notNull()
         table.string("LastName", 280).notNull()
-        table.string("address", 280).notNull()
+        table.string("address", 280)
         table.string("phone").notNull()
         table.string("email", 280).notNull()
     })
@@ -17,7 +17,7 @@ exports.up = async function(knex) {
       table.string("password", 280).notNull()
       table.string("FirstName", 280).notNull()
       table.string("LastName", 280).notNull()
-      table.string("address", 280).notNull()
+      table.string("address", 280)
       table.string("phone").notNull()
       table.string("email", 280).notNull()
   })
@@ -37,6 +37,7 @@ exports.up = async function(knex) {
   exports.down = async function(knex) {
     await knex.schema.dropTableIfExists("entrepreneur")
     await knex.schema.dropTableIfExists("backer")
+    await knex.schema.dropTableIfExists("projects")
 
   }
   
