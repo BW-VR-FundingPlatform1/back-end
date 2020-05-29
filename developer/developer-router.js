@@ -14,7 +14,7 @@ router.get("/",   async (req, res, next) => {
   }
 });
 
-router.get("/projects",  async (req, res, next) => {
+router.get("/projects", restrict(), async (req, res, next) => {
   try {
     res.json(await db.projectList());
   } catch (err) {
