@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 
 const router = require("express").Router()
 
-router.get("/", restrict(), async (req, res, next) => {
+router.get("/",   async (req, res, next) => {
   try {
     res.json(await db.list());
   } catch (err) {
@@ -14,12 +14,40 @@ router.get("/", restrict(), async (req, res, next) => {
   }
 });
 
-router.get("/projects", restrict(), async (req, res, next) => {
+router.get("/projects",  async (req, res, next) => {
   try {
     res.json(await db.projectList());
   } catch (err) {
     next(err);
   }
+});
+
+router.get('/:id/projects', restrict(), (req, res) => {
+  const { id } = req.params
+  
+  db.findProject(id)
+      .then(project => {
+          res.status(200).json(project)
+      })
+      .catch(err => {
+          console.log(err)
+          res.status(500).json({message: "Unable to find Project"})
+      })
+});
+
+
+router.post('/:id/projects', restrict(), (req, res) => {
+  const { id } = req.params;
+  const project = req.body;
+
+  db.insertProject({...project, developer_id: id})
+      .then(project => {
+          res.status(200).json(project)
+      })
+      .catch(err => {
+          console.log(err)
+          res.status(500).json({message: "Unable to add a new project"})
+      })
 });
 
 router.post("/register", async (req, res, next) => {
@@ -60,7 +88,8 @@ router.post("/register", async (req, res, next) => {
           res.cookie("token", token)
           res.json({
             message: `Welcome ${user.username}! :)`,
-            token: token
+            token: token,
+            username: user.username
           })
         } catch(err) {
           next(err)

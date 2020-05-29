@@ -24,14 +24,15 @@ exports.up = async function(knex) {
 
     await knex.schema.createTable("myProjects", (table) => {
       table.increments("id")
-      table.string("img").notNull()
+      table.string("img")
       table.string("projectName").notNull().unique()
       table.string("fundingAmount").notNull()
+      table.integer("developer_id").unsigned().notNullable().references('id').inTable('developer')
     })
 
     await knex.schema.createTable("projectsToBack", (table) => {
       table.increments("id")
-      table.string("img").notNull()
+      table.string("img")
       table.string("companyName").notNull().unique()
       table.string("projectName").notNull().unique()
       table.string("fundingAmount").notNull()
@@ -39,7 +40,7 @@ exports.up = async function(knex) {
 
     await knex.schema.createTable("publicProjects", (table) => {
       table.increments("id")
-      table.string("img").notNull()
+      table.string("img")
       table.string("companyName").notNull().unique()
       table.string("projectName").notNull().unique()
       table.string("fundingAmount").notNull()

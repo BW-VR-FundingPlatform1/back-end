@@ -38,18 +38,22 @@ function projectList() {
     .select("img", "projectName", "fundingAmount")
 }
 
+function findProject(projectId) {
+    return db('myProjects')
+        .where({developer_id: projectId})
+};
+
 function findProjectById(id) {
     return db("myProjects")
         .where({ id })
         .first()
 }
-function insertProject(job) {
-    return db('jobs')
-        .insert(job,'id')
+function insertProject(project) {
+    return db('myProjects')
+        .insert(project,'id')
         .then(([id]) => {
-            return findJobById(id)
+            return findProjectById(id)
         })
-        //add message to endpoint "Created Job with id of ${id}"
 };
 
 
@@ -61,5 +65,6 @@ module.exports = {
     remove,
     findProjectById,
     projectList,
-    insertProject
+    insertProject,
+    findProject
 }

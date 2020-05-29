@@ -10,7 +10,7 @@ async function insert(user) {
 
 function list() {
     return db("publicProjects")
-    .select("img", "companyName", "projectName", "fundingAmount")
+    .select("companyName", "projectName", "fundingAmount")
 }
 
 function findBy(filter) {
