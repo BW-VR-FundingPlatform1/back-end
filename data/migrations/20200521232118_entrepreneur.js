@@ -36,6 +36,14 @@ exports.up = async function(knex) {
       table.string("projectName").notNull().unique()
       table.string("fundingAmount").notNull()
     })
+
+    await knex.schema.createTable("publicProjects", (table) => {
+      table.increments("id")
+      table.string("img").notNull()
+      table.string("companyName").notNull().unique()
+      table.string("projectName").notNull().unique()
+      table.string("fundingAmount").notNull()
+    })
   }
   
   exports.down = async function(knex) {
@@ -44,6 +52,9 @@ exports.up = async function(knex) {
     await knex.schema.dropTableIfExists("myProjects")
     await knex.schema.dropTableIfExists("projectsToBack")
     await knex.schema.dropTableIfExists("developer")
+    await knex.schema.dropTableIfExists("publicProjects")
+
+
 
 
 

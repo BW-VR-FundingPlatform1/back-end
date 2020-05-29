@@ -9,8 +9,8 @@ async function insert(user) {
 }
 
 function list() {
-    return db("backer")
-    .select("id", "firstname", "lastname")
+    return db("publicProjects")
+    .select("img", "companyName", "projectName", "fundingAmount")
 }
 
 function findBy(filter) {

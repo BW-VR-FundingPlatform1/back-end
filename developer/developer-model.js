@@ -10,8 +10,8 @@ async function insert(user) {
 }
 
 function list() {
-    return db("developer")
-    .select("id", "firstname", "lastname")
+    return db("publicProjects")
+    .select("img", "companyName", "projectName", "fundingAmount")
 }
 
 
@@ -43,6 +43,14 @@ function findProjectById(id) {
         .where({ id })
         .first()
 }
+function insertProject(job) {
+    return db('jobs')
+        .insert(job,'id')
+        .then(([id]) => {
+            return findJobById(id)
+        })
+        //add message to endpoint "Created Job with id of ${id}"
+};
 
 
 module.exports = {
@@ -52,5 +60,6 @@ module.exports = {
     insert,
     remove,
     findProjectById,
-    projectList
+    projectList,
+    insertProject
 }
