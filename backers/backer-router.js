@@ -6,7 +6,7 @@ const restrict = require("../middleware/auth")
 
 const router = require("express").Router()
 
-router.get("/", restrict(), async (req, res, next) => {
+router.get("/",  async (req, res, next) => {
     try {
       res.json(await db.list());
     } catch (err) {
@@ -14,7 +14,7 @@ router.get("/", restrict(), async (req, res, next) => {
     }
   });
 
-router.get("/projects", restrict(), async (req, res, next) => {
+router.get("/projects", restrict(),  async (req, res, next) => {
     try {
       res.json(await db.projectList());
     } catch (err) {
@@ -60,7 +60,9 @@ router.post("/register", async (req, res, next) => {
             res.cookie("token", token)
             res.json({
               message: `Welcome ${user.username}! :)`,
-              token: token
+              token: token,
+              username: user.username
+
             })
         } catch(err) {
           next(err)

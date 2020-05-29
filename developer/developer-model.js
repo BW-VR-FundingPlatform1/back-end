@@ -10,8 +10,8 @@ async function insert(user) {
 }
 
 function list() {
-    return db("developer")
-    .select("id", "firstname", "lastname")
+    return db("publicProjects")
+    .select("img", "companyName", "projectName", "fundingAmount")
 }
 
 
@@ -38,11 +38,23 @@ function projectList() {
     .select("img", "projectName", "fundingAmount")
 }
 
+function findProject(projectId) {
+    return db('myProjects')
+        .where({developer_id: projectId})
+};
+
 function findProjectById(id) {
     return db("myProjects")
         .where({ id })
         .first()
 }
+function insertProject(project) {
+    return db('myProjects')
+        .insert(project,'id')
+        .then(([id]) => {
+            return findProjectById(id)
+        })
+};
 
 
 module.exports = {
@@ -52,5 +64,7 @@ module.exports = {
     insert,
     remove,
     findProjectById,
-    projectList
+    projectList,
+    insertProject,
+    findProject
 }
