@@ -17,10 +17,8 @@ function list() {
     .select("img", "companyName", "projectName", "fundingAmount")
 }
 
-
 function findBy(filter) {
     return db("developer")
-        .select("id", "username", "password")
         .where(filter)
 }
 

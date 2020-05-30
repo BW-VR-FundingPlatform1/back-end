@@ -55,7 +55,7 @@ router.post('/:id/projects', restrict(), async (req, res, next) => {
 });
 
 
-router.put("/:id/projects", authenticate, async (req, res, next) => {
+router.put("/:id/projects", restrict(), async (req, res, next) => {
   try {
       const { id } = req.params 
       const project = await db.update(id, req.body)
