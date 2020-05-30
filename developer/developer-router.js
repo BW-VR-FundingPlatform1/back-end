@@ -75,7 +75,7 @@ router.put("/projects/:id", restrict(), (req, res) => {
   const changes = { ...req.body}
   db.updateProject(id, changes)
   .then(project => {
-    console.log(`this is ISSUE`, project)
+    console.log(`this is PROJECT`, project)
     res.status(200).json(project)
   })
   .catch(({ name, message, code, stack }) => {
