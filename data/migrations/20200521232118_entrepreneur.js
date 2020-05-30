@@ -23,11 +23,11 @@ exports.up = async function(knex) {
   })
 
     await knex.schema.createTable("myProjects", (table) => {
+      table.increments('id')
       table.string("img")
       table.string("projectName").notNull().unique()
       table.string("fundingAmount").notNull()
       table.integer("developer_id").references('id').inTable('developer').onDelete("CASCADE").onUpdate("CASCADE")
-      table.primary("developer_id")
     })
 
     await knex.schema.createTable("projectsToBack", (table) => {
