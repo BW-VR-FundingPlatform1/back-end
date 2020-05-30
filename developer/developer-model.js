@@ -64,6 +64,15 @@ async function insertProject(project) {
             
 };
 
+async function updateProject(id, changes){
+    await db('myProjects')
+      .where({id})
+      .update(changes)
+    
+    return findProjectById(id)
+    
+}
+
 
 module.exports = {
     list,
@@ -74,5 +83,6 @@ module.exports = {
     findProjectById,
     projectList,
     insertProject,
-    findProject
+    findProject,
+    updateProject
 }
