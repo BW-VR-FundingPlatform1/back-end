@@ -55,11 +55,11 @@ async function insertProject(project) {
     // const id = await db('myProjects')
     return db('myProjects')
         .insert(project)
-        .returning("id")
+        // .returning("id")
         .then(ids => {
-            const [id] = ids
-            console.log(id)
-            return findProjectById(id)
+            // const [id] = ids
+            // console.log(id)
+            return {message: "you have added a project"}
         })
             
 };
