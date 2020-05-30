@@ -73,6 +73,13 @@ async function updateProject(id, changes){
     
 }
 
+function deleteProject(id) {
+    return db('myProjects')
+      .where("id", id)
+      .delete()
+    
+  }
+
 
 module.exports = {
     list,
@@ -84,5 +91,6 @@ module.exports = {
     projectList,
     insertProject,
     findProject,
-    updateProject
+    updateProject,
+    deleteProject
 }

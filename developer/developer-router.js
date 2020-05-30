@@ -83,6 +83,17 @@ router.put("/projects/:id", restrict(), (req, res) => {
   }) 
 })
 
+router.delete("/projects/:id", (req, res) => {
+  const { id } = req.params
+  db.deleteProject(id)
+  .then(project => {
+    res.status(200).json(project)
+  })
+  .catch(({ name, message, code, stack }) => {
+    res.status(500).json({ name, message, code, stack })
+  })
+})
+
 router.post("/register", async (req, res, next) => {
     try {
         const {username} = req.body
