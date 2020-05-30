@@ -48,12 +48,13 @@ exports.up = async function(knex) {
   }
   
   exports.down = async function(knex) {
-    await knex.schema.dropTableIfExists("entrepreneur")
-    await knex.schema.dropTableIfExists("backer")
-    await knex.schema.dropTableIfExists("myProjects")
-    await knex.schema.dropTableIfExists("projectsToBack")
-    await knex.schema.dropTableIfExists("developer")
     await knex.schema.dropTableIfExists("publicProjects")
+    await knex.schema.dropTableIfExists("projectsToBack")
+    await knex.schema.dropTableIfExists("myProjects")
+    await knex.schema.dropTableIfExists("backer")
+    await knex.schema.dropTableIfExists("developer")
+    await knex.schema.dropTableIfExists("entrepreneur")
+   
 
 
 
