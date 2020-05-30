@@ -36,15 +36,13 @@ router.get('/:id/projects', restrict(), async (req, res) => {
 });
 
 
-router.post('/:id/projects',  async (req, res) => {
+router.post('/:id/projects', restrict(),  async (req, res) => {
   try {
-      const { id } = req.params;
-      const project = req.body;
+      const id = await db.insert(req.body);
 
-     await db.insertProject({...project, developer_id: id})
-          .then(project => {
-              res.status(200).json(project)
-          })
+      const project = await db.findProjectId(id)
+
+        return res.status(201).json(project)
     } catch(err) {
       next(err)
     }

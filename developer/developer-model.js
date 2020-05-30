@@ -51,12 +51,11 @@ function findProjectById(id) {
         .where({ id })
         .first()
 }
-function insertProject(project) {
-    return db('myProjects')
-        .insert(project,'id')
-        .then(([id]) => {
+async function insertProject(project) {
+    const [id] = await db('myProjects')
+        .insert(project)
+        .returning("id")
             return findProjectById(id)
-        })
 };
 
 
