@@ -26,7 +26,7 @@ exports.up = async function(knex) {
       table.string("img")
       table.string("projectName").notNull().unique()
       table.string("fundingAmount").notNull()
-      table.integer("developer_id").unsigned().notNullable().references('id').inTable('developer').onDelete("CASCADE").onUpdate("CASCADE")
+      table.integer("developer_id").references('id').inTable('developer').onDelete("CASCADE").onUpdate("CASCADE")
       table.primary(["developer_id"])
     })
 
