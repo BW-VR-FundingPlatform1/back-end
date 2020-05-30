@@ -39,7 +39,8 @@ router.get('/:id/projects', restrict(), async (req, res, next) => {
 });
 
 
-router.post('/:id/projects',  (req, res, next) => {
+router.post('/:id/projects', restrict(), async (req, res, next) => {
+  try {
   const { id } = req.params;
   const project = req.body;
 
@@ -47,11 +48,41 @@ router.post('/:id/projects',  (req, res, next) => {
       .then(project => {
           res.status(200).json(project)
       })
-      .catch(err => {
-          console.log(err)
-          res.status(500).json({message: "Unable to add a new project"})
-      })
+      
+    }catch (err) {
+      next(err)
+    }
 });
+
+
+router.put("/:id/projects", authenticate, async (req, res, next) => {
+  try {
+      const { id } = req.params 
+      const project = await db.update(id, req.body)
+
+      if (project) {
+          res.json(project)
+      } else {
+          return res.status(404).json({
+              message: "Could not find project with given id.",
+          })
+      }
+  } catch (err) {
+      next(err)
+  }
+})
+
+router.delete("/:id/projects", restrict(), async (req, res, next) => {
+  try {
+      const { id } = await db("myProjects")
+          .where({ id: req.params.id })
+          .del()
+      return res.status(200).json({ id: req.params.id })
+  }
+  catch (err) {
+      next(err)
+  }
+})
 
 router.post("/register", async (req, res, next) => {
     try {

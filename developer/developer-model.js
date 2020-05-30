@@ -51,12 +51,25 @@ function findProjectById(id) {
         .where({ id })
         .first()
 }
-async function insertProject(project) {
-    const [id] = await db('myProjects')
-        .insert(project)
-        .returning("id")
+ function insertProject(project) {
+    return db('myProjects')
+        .insert(project, "id")
+        .then(([id]) => {
             return findProjectById(id)
-};
+        })
+}
+async function updateProject(id, changes) {
+    await db("myProjects")
+        .where({ id })
+        .update(changes)
+        .returning("id")
+        return findById(id)
+}
+function removeProject(id) {
+return db("myProjects")
+    .where({id})
+    .del();
+}
 
 
 module.exports = {
@@ -68,5 +81,7 @@ module.exports = {
     findProjectById,
     projectList,
     insertProject,
-    findProject
+    findProject,
+    updateProject,
+    removeProject
 }
