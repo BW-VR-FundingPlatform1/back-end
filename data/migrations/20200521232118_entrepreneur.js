@@ -27,7 +27,7 @@ exports.up = async function(knex) {
       table.string("projectName").notNull().unique()
       table.string("fundingAmount").notNull()
       table.integer("developer_id").references('id').inTable('developer').onDelete("CASCADE").onUpdate("CASCADE")
-      table.primary(["developer_id"])
+      table.primary("developer_id")
     })
 
     await knex.schema.createTable("projectsToBack", (table) => {
