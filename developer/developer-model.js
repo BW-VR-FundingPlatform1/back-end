@@ -2,11 +2,17 @@ const db = require("../data/dbConfig")
 const bcrypt = require("bcryptjs")
 
 
-async function insert(user) {
+async function add(user) {
     user.password = await bcrypt.hash(user.password, 12)
-    const id = await db("developer").insert(user)
-    console.log("id", id)
+    // const id = await db("developer").insert(user)
+    return db('developer')
+        .insert(user, 'id')
+        .then(ids => {
+        const [id] = ids;
         return findById(id)
+    })
+    // console.log("id", id)
+    //     return findById(id)
 }
 
 function list() {
@@ -61,7 +67,7 @@ module.exports = {
     list,
     findBy,
     findById,
-    insert,
+    add,
     remove,
     findProjectById,
     projectList,

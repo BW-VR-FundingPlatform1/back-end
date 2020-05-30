@@ -2,9 +2,17 @@
 
 module.exports = {
   development: {
-    client: 'sqlite3',
+    client: 'pg',
     useNullAsDefault: true,
-    connection: {filename: './data/auth.db3'},
+    connection: {
+      user:'postgres',
+      password:'coding7',
+      database:'vr-funding'
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
     migrations: {directory: './data/migrations'},
     seeds: {directory: "./data/seeds",},
   },

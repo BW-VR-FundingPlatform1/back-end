@@ -59,7 +59,8 @@ router.post("/register", async (req, res, next) => {
             message: "username is already taken"
           })
         }
-        res.status(201).json(await db.insert(req.body))
+        const newUser = await db.add(req.body)
+        res.status(201).json(newUser)
       } catch(err) {
         next(err)
       }
