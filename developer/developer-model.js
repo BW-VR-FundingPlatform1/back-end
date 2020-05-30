@@ -52,10 +52,16 @@ function findProjectById(id) {
         .first()
 }
 async function insertProject(project) {
-    const id = await db('myProjects')
+    // const id = await db('myProjects')
+    return db('myProjects')
         .insert(project)
         .returning("id")
+        .then(ids => {
+            const [id] = ids
+            console.log(id)
             return findProjectById(id)
+        })
+            
 };
 
 
