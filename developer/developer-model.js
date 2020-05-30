@@ -4,15 +4,12 @@ const bcrypt = require("bcryptjs")
 
 async function add(user) {
     user.password = await bcrypt.hash(user.password, 12)
-    // const id = await db("developer").insert(user)
     return db('developer')
         .insert(user, 'id')
         .then(ids => {
         const [id] = ids;
         return findById(id)
     })
-    // console.log("id", id)
-    //     return findById(id)
 }
 
 function list() {
@@ -54,12 +51,11 @@ function findProjectById(id) {
         .where({ id })
         .first()
 }
-function insertProject(project) {
-    return db('myProjects')
-        .insert(project,'id')
-        .then(([id]) => {
+async function insertProject(project) {
+    const [id] = await db('myProjects')
+        .insert(project)
+        .returning("id")
             return findProjectById(id)
-        })
 };
 
 

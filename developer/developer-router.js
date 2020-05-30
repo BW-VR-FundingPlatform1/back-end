@@ -14,7 +14,7 @@ router.get("/",   async (req, res, next) => {
   }
 });
 
-router.get("/projects",  async (req, res, next) => {
+router.get("/projects", restrict(), async (req, res, next) => {
   try {
     res.json(await db.projectList());
   } catch (err) {
@@ -22,21 +22,24 @@ router.get("/projects",  async (req, res, next) => {
   }
 });
 
-router.get('/:id/projects', restrict(), (req, res) => {
-  const { id } = req.params
-  
-  db.findProject(id)
-      .then(project => {
-          res.status(200).json(project)
-      })
-      .catch(err => {
-          console.log(err)
-          res.status(500).json({message: "Unable to find Project"})
-      })
+router.get('/:id/projects', restrict(), async (req, res, next) => {
+  try {
+      const { id } = req.params
+      const project = await db.findProjectById(id)
+      
+      if (project) {
+        return res.status(200).json(project)
+    } else {
+        return res.status(404).json({ message: "Could not find project with this Id." })
+    }
+
+} catch(err) {
+      next(err)
+    }
 });
 
 
-router.post('/:id/projects', restrict(), (req, res) => {
+router.post('/:id/projects',  (req, res, next) => {
   const { id } = req.params;
   const project = req.body;
 
