@@ -22,6 +22,23 @@ router.get("/projects", restrict(), async (req, res, next) => {
   }
 });
 
+router.get("/projects/:id", restrict(), async (req, res, next) => {
+  try{
+    const { id } = req.params
+    const project = await db.findProjectById(id)
+
+    if (project) {
+      return res.status(200).json(project)
+    } else {
+      return res.status(404).json({ message: "Could not find project with this Id." })
+    }
+
+    } catch(err) {
+      next(err)
+    }
+    
+})
+
 router.get('/:id/projects', restrict(), async (req, res, next) => {
   try {
       const { id } = req.params
