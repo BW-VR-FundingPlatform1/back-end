@@ -24,11 +24,14 @@
   "devDependencies": {
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
-    "nodemon": "^2.0.4"
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "watch": "nodemon --require dotenv/config index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",

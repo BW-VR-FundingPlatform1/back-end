@@ -65,8 +65,8 @@ async function updateProject(id, changes) {
 }
 function removeProject(id) {
 return db("myProjects")
-    .where({id})
-    .del();
+    .where("id", id)
+    .delete();
 }
 
 

@@ -22,7 +22,7 @@ router.get("/projects", restrict(), async (req, res, next) => {
   }
 });
 
-router.get('/:id/projects', restrict(), async (req, res, next) => {
+router.get('/projects/:id', restrict(), async (req, res, next) => {
   try {
       const { id } = req.params
       const project = await db.findProjectById(id)
@@ -39,7 +39,7 @@ router.get('/:id/projects', restrict(), async (req, res, next) => {
 });
 
 
-router.post('/:id/projects', restrict(), async (req, res, next) => {
+router.post('/projects/:id', restrict(), async (req, res, next) => {
   try {
   const { id } = req.params;
   const project = req.body;
@@ -55,35 +55,30 @@ router.post('/:id/projects', restrict(), async (req, res, next) => {
 });
 
 
-router.put("/:id/projects", restrict(), async (req, res, next) => {
-  try {
-      const { id } = req.params 
-      const project = await db.update(id, req.body)
-
-      if (project) {
-          res.json(project)
-      } else {
-          return res.status(404).json({
-              message: "Could not find project with given id.",
-          })
-      }
-  } catch (err) {
-      next(err)
-  }
+router.put("/projects/:id", restrict(), (req, res) => {
+  const { id } = req.params
+  const changes = { ...req.body}
+  db.updateProject(id, changes)
+  .then(project => {
+    res.status(200).json(project)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({message: "Unable to delete project"})
+})
 })
 
-router.delete("/:id/projects", restrict(), async (req, res, next) => {
-  try {
-      const { id } = await db("myProjects")
-          .where({ id: req.params.id })
-          .del()
-      return res.status(200).json({ id: req.params.id })
-  }
-  catch (err) {
-      next(err)
-  }
+router.delete("/projects/:id", (req, res) => {
+  const { id } = req.params
+  db.removeProject(id)
+  .then(project => {
+    res.status(200).json(project)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({message: "Unable to delete project"})
 })
-
+})
 router.post("/register", async (req, res, next) => {
     try {
         const {username} = req.body
