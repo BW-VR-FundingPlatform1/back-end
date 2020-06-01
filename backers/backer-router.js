@@ -6,9 +6,17 @@ const restrict = require("../middleware/auth")
 
 const router = require("express").Router()
 
-router.get("/", restrict(), async (req, res, next) => {
+router.get("/",  async (req, res, next) => {
     try {
       res.json(await db.list());
+    } catch (err) {
+      next(err);
+    }
+  });
+
+router.get("/projects", restrict(),  async (req, res, next) => {
+    try {
+      res.json(await db.projectList());
     } catch (err) {
       next(err);
     }
@@ -47,10 +55,15 @@ router.post("/register", async (req, res, next) => {
             userId: user.id,
             userRole: "user",
           }
-          res.cookie("token", jwt.sign(tokenPayload, process.env.JWT_SECRET))
-          res.json({
-            message: `Welcome ${user.username}! :)`,
-          })
+            const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {expiresIn: '1hr'})
+
+            res.cookie("token", token)
+            res.json({
+              message: `Welcome ${user.username}! :)`,
+              token: token,
+              username: user.username
+
+            })
         } catch(err) {
           next(err)
         }

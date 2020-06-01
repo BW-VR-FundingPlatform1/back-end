@@ -4,13 +4,17 @@ const bcrypt = require("bcryptjs")
 
 async function insert(user) {
     user.password = await bcrypt.hash(user.password, 12)
-    const [ id ] = await db("backer").insert(user)
+    return db('backer')
+        .insert(user, 'id')
+        .then(ids => {
+        const [id] = ids;
         return findById(id)
+    })
 }
 
 function list() {
-    return db("backer")
-    .select("id", "firstname", "lastname")
+    return db("publicProjects")
+    .select("companyName", "projectName", "fundingAmount")
 }
 
 function findBy(filter) {
@@ -24,21 +28,21 @@ function findById(id) {
         .first()
 }
 
-
-// async function update(id, changes) {
-//     await db("backer")
-//         .where({ id })
-//         .update(changes)
-//         .returning("id")
-//         return findById(id)
-// }
-
-
-
 function remove(id) {
     return db("backer")
         .where({ id })
         .del()
+}
+
+function projectList() {
+    return db("projectsToBack")
+    .select("img", "companyName", "projectName", "fundingAmount")
+}
+
+function findProjectById(id) {
+    return db("projectsToBack")
+        .where({ id })
+        .first()
 }
 
 module.exports = {
@@ -47,4 +51,6 @@ module.exports = {
     findById,
     insert,
     remove,
+    projectList,
+    findProjectById
 }
